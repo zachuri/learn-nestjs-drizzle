@@ -22,12 +22,12 @@ export const DatabseProvider: FactoryProvider = {
 
     class CustomDbLogWriter implements LogWriter {
       write(message: string) {
-        logger.verbose(message)
+        logger.verbose(message);
       }
     }
 
     return drizzle(client, {
-      logger: new DefaultLogger({ writer: new CustomDbLogWriter() }),
+      logger: new DefaultLogger({ writer: new CustomDbLogWriter() })
     });
-  },
+  }
 };
