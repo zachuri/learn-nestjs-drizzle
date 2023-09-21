@@ -10,19 +10,19 @@ export type DbType = ReturnType<typeof drizzle>; // Update the DbType type
 export const DatabseProvider: FactoryProvider = {
   provide: DB,
   inject: [ConfigService],
-  useFactory: async (ConfigService: ConfigService) => {
+  useFactory: async (configService: ConfigService) => {
     const logger = new Logger('DB');
 
     logger.debug('Connecting to PostgreSQL...');
 
-    const connectionString = ConfigService.get<string>('DATABASE_URL'); // Replace with your PostgreSQL connection string
+    const connectionString = configService.get<string>('DATABASE_URL'); // Replace with your PostgreSQL connection string
     const client = postgres(connectionString);
 
     logger.debug('Connected to PostgreSQL!');
 
     class CustomDbLogWriter implements LogWriter {
       write(message: string) {
-        logger.verbose(message);
+        logger.verbose(message)
       }
     }
 
