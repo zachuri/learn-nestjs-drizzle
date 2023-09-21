@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common'
 import { CreateUserDto } from './dto/create-user.dto'
 import { UpdateUserDto } from './dto/update-user.dto'
 import { DB, DbType } from '@/global/provider/db.provider'
-import { users } from '@/database/schema'
+import { users } from '@/drizzle/schema'
 import { eq } from 'drizzle-orm'
 
 @Injectable()
