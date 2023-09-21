@@ -1,5 +1,4 @@
 import { FactoryProvider, Logger } from '@nestjs/common';
-import { ConfigType } from '@nestjs/config';
 import { DefaultLogger, LogWriter } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/postgres-js'; // Import the PostgreSQL drizzle module
 import { ConfigService } from '@nestjs/config';
