@@ -1,4 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { AppService } from './app.service';
 
 @Controller()
@@ -10,6 +11,7 @@ export class AppController {
     return this.appService.getHello();
   }
 
+  @ApiTags('user')
   @Get('user')
   async getUser() {
     return this.appService.getUser();

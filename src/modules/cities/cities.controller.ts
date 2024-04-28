@@ -1,9 +1,11 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { CitiesService } from './cities.service';
-import { CreateUserDto } from './dto/create-city.dto';
-import { City } from './entities/city.entity';
 import { CitiesTable } from '@app/modules/drizzle/schema';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
+import { CitiesService } from './cities.service';
+import { CreateCityDto } from './dto/create-city.dto';
+import { City } from './entities/city.entity';
 
+@ApiTags('cities')
 @Controller('cities')
 export class CitiesController {
   constructor(private citiesService: CitiesService) {}
@@ -19,7 +21,7 @@ export class CitiesController {
   }
 
   @Post()
-  createCity(@Body() body: CreateUserDto) {
+  createCity(@Body() body: CreateCityDto) {
     return this.citiesService.createCity(body);
   }
 }
