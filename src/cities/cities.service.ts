@@ -22,12 +22,11 @@ export class CitiesService {
     });
   }
 
-  createCity(createUserDto: CreateUserDto) {
+  async createCity(createUserDto: CreateUserDto): Promise<City[]> {
     const newCity = {
-      id: Math.random(),
       ...createUserDto,
     };
 
-    this.db.insert(schema.cities).values(newCity);
+    return this.db.insert(schema.cities).values(newCity).returning();
   }
 }

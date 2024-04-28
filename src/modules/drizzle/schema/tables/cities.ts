@@ -6,3 +6,4 @@ export const cities = pgTable('cities', {
 });
 
 export type CitiesTable = typeof cities.$inferSelect;
+export type CitiesInsert = typeof cities.$inferInsert;
