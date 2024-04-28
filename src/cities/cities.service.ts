@@ -1,28 +1,31 @@
 import { DRIZZLE_ORM } from '@app/core/constants/db.constants';
 import { Inject, Injectable } from '@nestjs/common';
+import { eq } from 'drizzle-orm';
 import { PostgresJsDatabase } from 'drizzle-orm/postgres-js';
 import * as schema from '../modules/drizzle/schema';
+import { CreateUserDto } from './dto/create-city.dto';
+import { City } from './entities/city.entity';
 
 @Injectable()
 export class CitiesService {
-  private cities = [{ id: 0, name: 'Los Angeles' }];
-
   constructor(
     @Inject(DRIZZLE_ORM) private db: PostgresJsDatabase<typeof schema>,
   ) {}
 
-  findAll() {
-    return this.cities;
+  async findAll(): Promise<City[]> {
+    return this.db.select().from(schema.cities);
   }
 
-  findById(cityId: number) {
-    return this.cities.find((city) => city.id === cityId);
+  async findById(cityId: number): Promise<City> {
+    return this.db.query.cities.findFirst({
+      where: eq(schema.cities.id, cityId),
+    });
   }
 
-  createCity({ name }: { name: string }) {
+  createCity(createUserDto: CreateUserDto) {
     const newCity = {
       id: Math.random(),
-      name,
+      ...createUserDto,
     };
 
     this.db.insert(schema.cities).values(newCity);
