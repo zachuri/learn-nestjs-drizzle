@@ -13,6 +13,7 @@ import {
 import { UsersModule } from './modules/users/users.module';
 import { ConfigModule } from '@nestjs/config';
 import { NestDrizzleModule } from './modules/drizzle/drizzle.module';
+import { CitiesModule } from './cities/cities.module';
 import * as schema from './modules/drizzle/schema';
 
 @Module({
@@ -29,6 +30,7 @@ import * as schema from './modules/drizzle/schema';
         };
       },
     }),
+    CitiesModule,
   ],
   controllers: [AppController],
   providers: [
