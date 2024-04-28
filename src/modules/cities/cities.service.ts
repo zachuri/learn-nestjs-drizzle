@@ -12,8 +12,11 @@ export class CitiesService {
     @Inject(DRIZZLE_ORM) private db: PostgresJsDatabase<typeof schema>,
   ) {}
 
-  async findAll(): Promise<City[]> {
-    return this.db.select().from(schema.cities);
+  async findAll(name?: string): Promise<City[]> {
+    return this.db
+      .select()
+      .from(schema.cities)
+      .where(name && eq(schema.cities.name, name));
   }
 
   async findById(cityId: number): Promise<City> {
