@@ -2,7 +2,7 @@ import { DRIZZLE_ORM } from '@app/core/constants/db.constants';
 import { Inject, Injectable } from '@nestjs/common';
 import { eq } from 'drizzle-orm';
 import { PostgresJsDatabase } from 'drizzle-orm/postgres-js';
-import * as schema from '../modules/drizzle/schema';
+import * as schema from '../drizzle/schema';
 import { CreateUserDto } from './dto/create-city.dto';
 import { City } from './entities/city.entity';
 
