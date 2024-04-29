@@ -19,10 +19,12 @@ export class CitiesService {
       .where(name && eq(schema.cities.name, name));
   }
 
-  async findById(cityId: number): Promise<City> {
-    return this.db.query.cities.findFirst({
+  findById(cityId: number): Promise<City> {
+    const city = this.db.query.cities.findFirst({
       where: eq(schema.cities.id, cityId),
     });
+
+    return city;
   }
 
   async createCity(createUserDto: CreateCityDto): Promise<City[]> {
@@ -30,6 +32,6 @@ export class CitiesService {
       ...createUserDto,
     };
 
-    return this.db.insert(schema.cities).values(newCity).returning();
+    return await this.db.insert(schema.cities).values(newCity).returning();
   }
 }

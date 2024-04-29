@@ -1,6 +1,20 @@
 import { CitiesTable } from '@app/modules/drizzle/schema';
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
-import { ApiQuery, ApiTags } from '@nestjs/swagger';
+import {
+  Body,
+  Controller,
+  Get,
+  NotFoundException,
+  Param,
+  ParseIntPipe,
+  Post,
+  Query,
+} from '@nestjs/common';
+import {
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiQuery,
+  ApiTags,
+} from '@nestjs/swagger';
 import { CitiesService } from './cities.service';
 import { CreateCityDto } from './dto/create-city.dto';
 import { City } from './entities/city.entity';
@@ -17,12 +31,20 @@ export class CitiesController {
   }
 
   @Get(':id')
-  getCityById(@Param('id') id: string): Promise<City> {
-    return this.citiesService.findById(Number(id));
+  @ApiOkResponse({ type: City, description: 'the city' })
+  @ApiNotFoundResponse()
+  async getCityById(@Param('id', ParseIntPipe) id: number): Promise<City> {
+    const city = await this.citiesService.findById(id);
+
+    if (!city) {
+      throw new NotFoundException();
+    }
+
+    return city;
   }
 
   @Post()
-  createCity(@Body() body: CreateCityDto) {
-    return this.citiesService.createCity(body);
+  async createCity(@Body() body: CreateCityDto) {
+    return await this.citiesService.createCity(body);
   }
 }
